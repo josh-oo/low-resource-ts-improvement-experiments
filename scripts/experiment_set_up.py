@@ -31,9 +31,9 @@ from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer
 
 import evaluate
 
-PREFIX = "/../../leichte-sprache-corpus/aligned/20min/"
-PREFIX_AUGMENTED = "/../../leichte-sprache-corpus/aligned/20min/augmented/"
-PRETRAINED_MODEL = "/../../pretrained_weights.bin"
+PREFIX = "../../leichte-sprache-corpus/aligned/20min/"
+PREFIX_AUGMENTED = "../../leichte-sprache-corpus/aligned/20min/augmented/"
+PRETRAINED_MODEL = "../../pretrained_weights.bin"
 MAX_INPUT_LENGTH = 1024
 
 EXPERIMENT_NAME = sys.argv[1]
@@ -517,7 +517,7 @@ if not os.path.exists(EXPERIMENT_NAME):
 if not os.path.exists(os.path.join(EXPERIMENT_NAME, str(SEED))):
   os.mkdir(os.path.join(EXPERIMENT_NAME, str(SEED)))
 
-steps_to_train = 20
+steps_to_train = 2000
 
 set_seed(SEED) # no direct effect on text generation
 
@@ -527,9 +527,9 @@ train_set, val_set, test_set, augmented_set = prepare_data(MAX_INPUT_LENGTH, EXP
 training_args = Seq2SeqTrainingArguments(
     predict_with_generate=True,
     include_inputs_for_metrics=True,
-    generation_max_length=10,
+    generation_max_length=1024,
     max_steps=steps_to_train,
-    output_dir="/results",
+    output_dir="../results",
     evaluation_strategy="steps",
     save_strategy='no',
     learning_rate=1e-3, 
