@@ -36,10 +36,10 @@ PREFIX_AUGMENTED = "/../../leichte-sprache-corpus/aligned/20min/augmented/"
 PRETRAINED_MODEL = "/../../pretrained_weights.bin"
 MAX_INPUT_LENGTH = 1024
 
-EXPERIMENT_NAME = sys.argv[0]
-SEED = int(sys.argv[1])
-EXPERIMENT_SET = sys.argv[2] #"inputs_back_google.csv"
-EXPERIMENT_SET_PROPORTION = sys.argv[3] # 0.5
+EXPERIMENT_NAME = sys.argv[1]
+SEED = int(sys.argv[2])
+EXPERIMENT_SET = sys.argv[3] #"inputs_back_google.csv"
+EXPERIMENT_SET_PROPORTION = float(sys.argv[4]) # 0.5
 
 """#Prepare Model"""
 
