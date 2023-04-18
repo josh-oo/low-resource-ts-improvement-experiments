@@ -11,6 +11,22 @@ The numbering of the notebooks should help you to execute them in the right orde
 For example 02_finetune_decoder or 03_pretraining should always be executed before 04_finetuning, because 04 needs the trained models of 02 or 03.
 However, you can also completely skip experiments 02 and 03 for the data augmentation experiments.
 
+The easiest way to implement MBart models with custom decoder is to use the EncoderDecoderModel from huggingface:
+```python
+#load pre-trained models into one EncoderDecoder
+mbart = MBartModel.from_pretrained(mbart_path)
+decoder = AutoModelForCausalLM.from_pretrained(decoder_path)
+model = EncoderDecoderModel(encoder=mbart.encoder,decoder=decoder)
+
+#push model
+model.push_to_hub("custom-mbart")
+
+#load fine-tuned model again
+model = EncoderDecoderModel.from_pretrained("custom-mbart") #encoder weights are newly initialized as MBartEncoder is no official encoder architecture
+mbart =  MBartModel.from_pretrained("custom-mbart", config=model.config.encoder) #wrap the custom-mbart weights into a full MBartModel
+model.encoder = mbart.encoder #set the EncoderDecoders encoder to the fine-tuned version
+```
+
 ## Results
 This folder contains .txt files with the translations of the respective models.
 It is divided into the different main groups of experiments.
