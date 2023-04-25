@@ -44,7 +44,9 @@ Additionally there are 4 .txt files for each experiment.
 - (...)-worst.txt : containing the worst translation candidate according to the reference translation (BLEU)
 - (...)-most-similar.txt : containing the translation candidate which is most similar to all other candidates (ROUGE)
 
-Evaluating the systems with 06_evaluate_translations I used the (...)-most-similar.txt files as they are independent of the reference translations.
+Evaluating the systems with 06_evaluate_translations I used the (...)-most-similar.txt files as they are independent of the reference translations. The refs.txt and sources.txt files can be found in the corresponding 20min or Kurier folder.
+
+It is recommended to use 06_evaluate_translations.ipynb in google colab, as you can simply drag and drop the needed .txt files in the sidebar.
 
 # Questions?
 Ask: joshua.oehms@tum.de
