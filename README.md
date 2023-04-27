@@ -11,6 +11,8 @@ The numbering of the notebooks should help you to execute them in the right orde
 For example 02_finetune_decoder or 03_pretraining should always be executed before 04_finetuning, because 04 needs the trained models of 02 or 03.
 However, you can also completely skip experiments 02 and 03 for the data augmentation experiments.
 
+The notebooks are usually constructed in such a way that all parameters important for the notebook are defined in one of the first cells and then all other cells can simply be executed one after the other without modifications.
+
 The easiest way to implement MBart models with custom decoder is to use the EncoderDecoderModel from huggingface:
 ```python
 #load pre-trained models into one EncoderDecoder
