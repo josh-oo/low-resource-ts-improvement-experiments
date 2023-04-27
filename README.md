@@ -46,6 +46,9 @@ Additionally there are 4 .txt files for each experiment.
 
 Evaluating the systems with 06_evaluate_translations I used the (...)-most-similar.txt files as they are independent of the reference translations. The refs.txt and sources.txt files can be found in the corresponding 20min or Kurier folder.
 
+Since the test data set is filtered for samples that do not exceed the maximum number of mBART tokens of 1024 tokens, the composition of the test set depends on the tokenizer (and, in the case of the robustness test, on the augmentation method).For each prediction, you can find the corresponding refs.txt (references) and source.txt (input sequences) by going up the folder hierarchy from your prediction file until you come across res.txt and source.txt for the first time.
+
+
 It is recommended to use 06_evaluate_translations.ipynb in google colab, as you can simply drag and drop the needed .txt files in the sidebar.
 
 # Questions?
