@@ -5,29 +5,15 @@ This repository contains all important files to reproduce the results of the mas
 ## Notebooks
 Here you can find all the notebooks used to prepare the data, train the models and then evaluate them.
 The notebooks that need to access the corpus data download it as a separate repository.
-If you run the notebooks on google colab you have to adjust the path of the prefixes.
+If you run the notebooks on google colab you have to adjust the path of the prefixes. Usually *../../* needs to be replaced by *content/*.
 
 The numbering of the notebooks should help you to execute them in the right order. 
 For example 02_finetune_decoder or 03_pretraining should always be executed before 04_finetuning, because 04 needs the trained models of 02 or 03.
 However, you can also completely skip experiments 02 and 03 for the data augmentation experiments.
 
-The notebooks are usually constructed in such a way that all parameters important for the notebook are defined in one of the first cells and then all other cells can simply be executed one after the other without modifications.
+The notebooks are usually constructed in such a way that all parameters important for the notebook are defined in one of the first cells and then all other cells can simply be executed one after the other without modifications. You can find detailed descriptions in the relevant notebooks in the *Hints* cell.
 
-The easiest way to implement MBart models with custom decoder is to use the EncoderDecoderModel from huggingface:
-```python
-#load pre-trained models into one EncoderDecoder
-mbart = MBartModel.from_pretrained(mbart_path)
-decoder = AutoModelForCausalLM.from_pretrained(decoder_path)
-model = EncoderDecoderModel(encoder=mbart.encoder,decoder=decoder)
-
-#push model
-model.push_to_hub("custom-mbart")
-
-#load fine-tuned model again
-model = EncoderDecoderModel.from_pretrained("custom-mbart") #encoder weights are newly initialized as MBartEncoder is no official encoder architecture
-mbart =  MBartModel.from_pretrained("custom-mbart", config=model.config.encoder) #wrap the custom-mbart weights into a full MBartModel
-model.encoder = mbart.encoder #set the EncoderDecoders encoder to the fine-tuned version
-```
+Some notebooks contain cells with Terminal calls (git clone and pip installs). If you are working locally, ideally you already have these dependencies installed and can ignore these cells. These cells are mainly intended for Google Colab.
 
 ## Results
 This folder contains .txt files with the translations of the respective models.
@@ -52,6 +38,23 @@ Since the test data set is filtered for samples that do not exceed the maximum n
 
 
 It is recommended to use 06_evaluate_translations.ipynb in google colab, as you can simply drag and drop the needed .txt files in the sidebar.
+
+# Nice to know
+The easiest way to implement MBart models with custom decoder is to use the EncoderDecoderModel from huggingface:
+```python
+#load pre-trained models into one EncoderDecoder
+mbart = MBartModel.from_pretrained(mbart_path)
+decoder = AutoModelForCausalLM.from_pretrained(decoder_path)
+model = EncoderDecoderModel(encoder=mbart.encoder,decoder=decoder)
+
+#push model
+model.push_to_hub("custom-mbart")
+
+#load fine-tuned model again
+model = EncoderDecoderModel.from_pretrained("custom-mbart") #encoder weights are newly initialized as MBartEncoder is no official encoder architecture
+mbart =  MBartModel.from_pretrained("custom-mbart", config=model.config.encoder) #wrap the custom-mbart weights into a full MBartModel
+model.encoder = mbart.encoder #set the EncoderDecoders encoder to the fine-tuned version
+```
 
 # Questions?
 Ask: joshua.oehms@tum.de
