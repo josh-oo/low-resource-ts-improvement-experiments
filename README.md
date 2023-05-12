@@ -1,3 +1,4 @@
+# Info
 This repository contains all important files to reproduce the results of the master thesis "A Survey on Automatic Text Simplification for German".
 
 # Content
